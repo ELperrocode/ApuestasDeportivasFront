@@ -14,7 +14,9 @@ export interface Match {
   strHomeTeamBadge: string;
   strAwayTeamBadge: string;
   strThumb: string;
-  odds: number;
+  homeOdds: string;
+  drawOdds: string;
+  awayOdds: string;
 }
 
 export interface Bet {
@@ -23,6 +25,8 @@ export interface Bet {
   type: string;
   amount: number;
   odds: number;
+  selection: string;
+  matchId: string;
   potential: number;
   status: 'pending' | 'win' | 'lost';
   date: string;

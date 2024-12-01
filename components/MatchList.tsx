@@ -7,17 +7,19 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import { useBetting } from '@/lib/hooks/useBetting';
 import Image from 'next/image';
 
 interface MatchListProps {
   leagueId: string;
-  onMatchSelect: (match: Match) => void;
 }
 
-export default function MatchList({ leagueId, onMatchSelect }: MatchListProps) {
+export default function MatchList({ leagueId }: MatchListProps) {
   const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { addBet } = useBetting();
 
   useEffect(() => {
     const fetchMatches = async () => {
@@ -64,17 +66,13 @@ export default function MatchList({ leagueId, onMatchSelect }: MatchListProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
       {matches.map((match) => (
-        <Card
-          key={match.idEvent}
-          className="cursor-pointer hover:shadow-lg transition-shadow"
-          onClick={() => onMatchSelect(match)}
-        >
+        <Card key={match.idEvent} className="overflow-hidden">
           <CardHeader className="relative h-48">
             <Image
               src={match.strThumb || '/placeholder.jpg'}
               alt={match.strEvent}
               fill
-              className="object-cover rounded-t-lg"
+              className="object-cover"
             />
           </CardHeader>
           <CardContent className="p-4">
@@ -99,11 +97,31 @@ export default function MatchList({ leagueId, onMatchSelect }: MatchListProps) {
                 />
               </div>
             </div>
-            <div className="flex justify-between items-center">
-              <div className="text-sm text-gray-600">
-                {match.dateEvent} {match.strTime}
-              </div>
-              <Badge variant="secondary">Odds: {match.odds}</Badge>
+            <div className="grid grid-cols-3 gap-2 mt-4">
+              <Button
+                variant="outline"
+                className="flex flex-col"
+                onClick={() => addBet(match, 'home')}
+              >
+                <span>Home</span>
+                <Badge variant="secondary">{match.homeOdds}</Badge>
+              </Button>
+              <Button
+                variant="outline"
+                className="flex flex-col"
+                onClick={() => addBet(match, 'draw')}
+              >
+                <span>Draw</span>
+                <Badge variant="secondary">{match.drawOdds}</Badge>
+              </Button>
+              <Button
+                variant="outline"
+                className="flex flex-col"
+                onClick={() => addBet(match, 'away')}
+              >
+                <span>Away</span>
+                <Badge variant="secondary">{match.awayOdds}</Badge>
+              </Button>
             </div>
           </CardContent>
         </Card>

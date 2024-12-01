@@ -1,3 +1,5 @@
+import { Match } from '@/lib/types';
+
 const API_URL = 'http://localhost:5123/api';
 
 async function handleResponse(response: Response) {
@@ -5,17 +7,13 @@ async function handleResponse(response: Response) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
   const data = await response.json();
-  console.log('API Response:', data); // Debug log
   return data;
 }
 
 export async function getLeagues() {
   try {
-    console.log('Fetching leagues from:', `${API_URL}/partidos/leagues`); // Debug log
     const response = await fetch(`${API_URL}/partidos/leagues`);
-    const data = await handleResponse(response);
-    console.log('Processed leagues data:', data); // Debug log
-    return data;
+    return await handleResponse(response);
   } catch (error) {
     console.error('Error fetching leagues:', error);
     return [];
@@ -24,11 +22,14 @@ export async function getLeagues() {
 
 export async function getUpcomingMatches(leagueId: string) {
   try {
-    console.log('Fetching matches for league:', leagueId); // Debug log
     const response = await fetch(`${API_URL}/partidos/upcomingMatches/${leagueId}`);
-    const data = await handleResponse(response);
-    console.log('Processed matches data:', data); // Debug log
-    return data;
+    const matches = await handleResponse(response);
+    return matches.map((match: Match) => ({
+      ...match,
+      homeOdds: (Math.random() * 3 + 1).toFixed(2),
+      drawOdds: (Math.random() * 4 + 2).toFixed(2),
+      awayOdds: (Math.random() * 3 + 1).toFixed(2),
+    }));
   } catch (error) {
     console.error('Error fetching matches:', error);
     return [];
@@ -40,6 +41,8 @@ export async function placeBet(data: {
   type: string;
   amount: number;
   odds: number;
+  selection: string;
+  matchId: string;
 }) {
   const response = await fetch(`${API_URL}/bets/place`, {
     method: 'POST',
@@ -52,37 +55,23 @@ export async function placeBet(data: {
 export async function getUserBets(userId: number) {
   try {
     const response = await fetch(`${API_URL}/bets/user/${userId}`);
-    return await handleResponse(response);
+    const bets = await handleResponse(response);
+    return bets.sort((a: { date: string }, b: { date: string }) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
     console.error('Error fetching user bets:', error);
     return [];
   }
 }
 
-export async function validateBet(betId: number) {
-  const response = await fetch(`${API_URL}/bets/validate/${betId}`);
+export async function validateBets(userId: number) {
+  const response = await fetch(`${API_URL}/bets/validate/${userId}`, {
+    method: 'POST',
+  });
   return handleResponse(response);
 }
 
-export async function login(credentials: { username: string; password: string }) {
-  console.log('Login request:', credentials);
-  const response = await fetch(`${API_URL}/users/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credentials),
-  });
-  console.log('Login response:', response);
-  return handleResponse(response);
-}
-
-export async function register(credentials: { username: string; password: string }) {
-  console.log('Register request:', credentials);
-  const response = await fetch(`${API_URL}/users/register`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credentials),
-  });
-  console.log('Register response:', response);
+export async function getUserBalance(userId: number) {
+  const response = await fetch(`${API_URL}/bets/user/${userId}/balance`);
   return handleResponse(response);
 }
 
@@ -91,6 +80,24 @@ export async function rechargeWallet(data: { userId: number; amount: number }) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
+  });
+  return handleResponse(response);
+}
+
+export async function login(credentials: { username: string; password: string }) {
+  const response = await fetch(`${API_URL}/users/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(credentials),
+  });
+  return handleResponse(response);
+}
+
+export async function register(credentials: { username: string; password: string }) {
+  const response = await fetch(`${API_URL}/users/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(credentials),
   });
   return handleResponse(response);
 }

@@ -11,6 +11,7 @@ interface AuthState {
   login: (username: string, password: string) => Promise<void>;
   register: (username: string, password: string) => Promise<void>;
   logout: () => void;
+  updateUserBalance: (balance: number) => void;
 }
 
 export const useAuth = create<AuthState>((set) => ({
@@ -36,4 +37,8 @@ export const useAuth = create<AuthState>((set) => ({
     }
   },
   logout: () => set({ user: null, error: null }),
+  updateUserBalance: (balance: number) => 
+    set((state) => ({
+      user: state.user ? { ...state.user, wallet: balance } : null
+    })),
 }));
