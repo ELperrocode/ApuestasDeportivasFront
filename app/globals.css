@@ -54,6 +54,13 @@
   --success: 142.1 76.2% 36.3%;
 }
 
+.animate-border {
+  animation: borderAnimation 5s linear infinite;
+}
+
+.border-animation {
+  animation: borderAnimation 2s infinite;
+}
 @layer base {
   * {
     @apply border-border;
@@ -79,4 +86,136 @@
 
 .glass-card {
   @apply bg-white/10 backdrop-blur-md border border-white/20;
+}
+
+@keyframes borderAnimation1 {
+  0% {
+    border-color: red;
+  }
+  25% {
+    border-color: yellow;
+  }
+  50% {
+    border-color: green;
+  }
+  75% {
+    border-color: blue;
+  }
+  100% {
+    border-color: red;
+  }
+}
+
+@keyframes borderAnimation2 {
+  0% {
+    border-color: purple;
+  }
+  25% {
+    border-color: orange;
+  }
+  50% {
+    border-color: cyan;
+  }
+  75% {
+    border-color: pink;
+  }
+  100% {
+    border-color: purple;
+  }
+}
+
+@keyframes borderAnimation3 {
+  0% {
+    border-color: lime;
+  }
+  25% {
+    border-color: magenta;
+  }
+  50% {
+    border-color: teal;
+  }
+  75% {
+    border-color: gold;
+  }
+  100% {
+    border-color: lime;
+  }
+}
+
+@keyframes borderAnimation4 {
+  0% {
+    border-color: red;
+  }
+  25% {
+    border-color: yellow;
+  }
+  50% {
+    border-color: green;
+  }
+  75% {
+    border-color: blue;
+  }
+  100% {
+    border-color: red;
+  }
+}
+
+@keyframes borderAnimation5 {
+  0% {
+    border-color: purple;
+  }
+  25% {
+    border-color: orange;
+  }
+  50% {
+    border-color: cyan;
+  }
+  75% {
+    border-color: pink;
+  }
+  100% {
+    border-color: purple;
+  }
+}
+
+@keyframes borderAnimation6 {
+  0% {
+    border-color: lime;
+  }
+  25% {
+    border-color: magenta;
+  }
+  50% {
+    border-color: teal;
+  }
+  75% {
+    border-color: gold;
+  }
+  100% {
+    border-color: lime;
+  }
+}
+
+.animate-border-1 {
+  animation: borderAnimation1 5s linear infinite;
+}
+
+.animate-border-2 {
+  animation: borderAnimation2 5s linear infinite;
+}
+
+.animate-border-3 {
+  animation: borderAnimation3 5s linear infinite;
+}
+
+.animate-border-4 {
+  animation: borderAnimation4 5s linear infinite;
+}
+
+.animate-border-5 {
+  animation: borderAnimation5 5s linear infinite;
+}
+
+.animate-border-6 {
+  animation: borderAnimation6 5s linear infinite;
 }

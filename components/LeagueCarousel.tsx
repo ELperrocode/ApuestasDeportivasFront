@@ -29,7 +29,7 @@ export default function LeagueCarousel({ onLeagueSelect }: LeagueCarouselProps) 
         setLoading(true);
         setError(null);
         const data = await getLeagues();
-        console.log('Leagues data in component:', data); // Debug log
+    
         if (Array.isArray(data) && data.length > 0) {
           setLeagues(data);
           // Select the first league by default
@@ -38,7 +38,6 @@ export default function LeagueCarousel({ onLeagueSelect }: LeagueCarouselProps) 
           setError('No leagues available');
         }
       } catch (err) {
-        console.error('Error in LeagueCarousel:', err); // Debug log
         setError('Failed to load leagues. Please try again later.');
       } finally {
         setLoading(false);
@@ -73,24 +72,31 @@ export default function LeagueCarousel({ onLeagueSelect }: LeagueCarouselProps) 
     );
   }
 
+  const getRandomBorderAnimation = () => {
+    const animations = ["animate-border-1", "animate-border-2", "animate-border-3"];
+    return animations[Math.floor(Math.random() * animations.length)];
+  };
+  
+
   return (
-    <Carousel className="w-full max-w-5xl mx-auto">
-      <CarouselContent>
-        {leagues.map((league) => (
-          <CarouselItem key={league.idLeague} className="md:basis-1/3 lg:basis-1/4">
-            <Card
-              className="cursor-pointer hover:scale-105 transition-transform"
-              onClick={() => onLeagueSelect(league.idLeague)}
-            >
-              <CardContent className="flex items-center justify-center p-6">
-                <h3 className="text-lg font-semibold text-center">{league.strLeague}</h3>
-              </CardContent>
-            </Card>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+<Carousel className="w-full max-w-8xl mx-auto">
+  <CarouselContent>
+    {leagues.map((league) => (
+      <CarouselItem key={league.idLeague} className="md:basis-1/3 lg:basis-1/4">
+        <Card
+          className={`cursor-pointer hover:scale-105 transition-transform border-4 border-transparent ${getRandomBorderAnimation()}`}
+          onClick={() => onLeagueSelect(league.idLeague)}
+        >
+          <CardContent className="flex items-center justify-center p-6">
+            <h3 className="text-lg font-semibold text-center">{league.strLeague}</h3>
+          </CardContent>
+        </Card>
+      </CarouselItem>
+    ))}
+  </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>
+
   );
 }
