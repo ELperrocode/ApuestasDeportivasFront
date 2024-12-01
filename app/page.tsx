@@ -35,26 +35,41 @@ export default function Home() {
       <div className="container mx-auto px-4 pt-24 pb-12">
         <PromotionalBanner />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           <div className="glass-card p-6 rounded-lg flex items-center space-x-4">
-            <DollarSign className="h-8 w-8 text-primary" />
+            <img
+              src="/images/icono-ruben.jpg"
+              className="h-20 w-20 text-primary rounded-full" />
             <div>
-              <h3 className="font-semibold">Best Odds</h3>
-              <p className="text-sm text-muted-foreground">Competitive pricing</p>
+              <h3 className="font-semibold">Ruben Rivera</h3>
+              <p className="text-sm text-muted-foreground">Hola</p>
             </div>
           </div>
           <div className="glass-card p-6 rounded-lg flex items-center space-x-4">
-            <Trophy className="h-8 w-8 text-primary" />
+            <img 
+            src="/images/icono-henry.jpg"
+            className="h-20 w-20 text-primary rounded-full" />
             <div>
-              <h3 className="font-semibold">Daily Rewards</h3>
-              <p className="text-sm text-muted-foreground">Win extra bonuses</p>
+              <h3 className="font-semibold">Henry Maldonado</h3>
+              <p className="text-sm text-muted-foreground">El perro</p>
             </div>
           </div>
           <div className="glass-card p-6 rounded-lg flex items-center space-x-4">
-            <Users className="h-8 w-8 text-primary" />
+            <img 
+            src="/images/icono-michael.jpg"
+              className="h-20 w-20 text-primary rounded-full" />
             <div>
-              <h3 className="font-semibold">Community</h3>
-              <p className="text-sm text-muted-foreground">Join other bettors</p>
+              <h3 className="font-semibold">Michael Aparicio</h3>
+              <p className="text-sm text-muted-foreground">No confien es de la 24</p>
+            </div>
+          </div>
+          <div className="glass-card p-6 rounded-lg flex items-center space-x-4">
+            <img
+              src="/images/icono-javier.jpg"
+              className="h-20 w-20 text-primary rounded-full" />
+            <div>
+              <h3 className="font-semibold">Javier Hernandez</h3>
+              <p className="text-sm text-muted-foreground">Yo</p>
             </div>
           </div>
         </div>
