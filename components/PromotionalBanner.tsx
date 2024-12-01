@@ -11,20 +11,20 @@ export default function PromotionalBanner() {
   const [activePromo, setActivePromo] = useState(0);
 
   return (
-    <div className="w-full mb-8">
+    <div className="w-full p-8">
       <Carousel
         className="w-full"
         onSelect={(index) => setActivePromo(index)}
       >
         <CarouselContent className="w-full">
-          <CarouselItem className="flex items-center justify-center w-full h-96">
+          <CarouselItem className="flex items-center justify-center w-full h-auto">
             <img
-              src="https://i.ibb.co/jHrg9gs/Iam-Black-3.png"
+              src="https://i.ibb.co/0VKNx6C/IamBlack.png"
               alt="BannerCarrusel"
               className="rounded-lg"
             />
           </CarouselItem>
-          <CarouselItem className="flex items-center justify-center w-full h-96">
+          <CarouselItem className="flex items-center justify-center w-full h-auto">
             <img
               src="https://i.ibb.co/0903M70/2.png"
               alt="BannerCarrusel"

@@ -7,8 +7,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+
 } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -94,8 +93,6 @@ export default function LeagueCarousel({ onLeagueSelect }: LeagueCarouselProps) 
       </CarouselItem>
     ))}
   </CarouselContent>
-  <CarouselPrevious />
-  <CarouselNext />
 </Carousel>
 
   );

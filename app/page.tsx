@@ -9,6 +9,51 @@ import UserWallet from '@/components/UserWallet';
 import PromotionalBanner from '@/components/PromotionalBanner';
 import { DollarSign, Trophy, Users } from 'lucide-react';
 import { useAuth } from '@/lib/hooks/useAuth';
+import ProfileCard from "@/components/ProfileCard";
+
+const ProfileGrid: React.FC = () => {
+  const profiles = [
+    {
+      image: "/images/icono-ruben.jpg",
+      name: "Ruben Rivera",
+      description: "Hola",
+      id: "8-1003-856",
+    },
+    {
+      image: "/images/icono-henry.jpg",
+      name: "Henry Maldonado",
+      description: "El perro",
+      id: "8-997-1177",
+    },
+    {
+      image: "/images/icono-michael.jpg",
+      name: "Michael Aparicio",
+      description: "No confíen, es de la 24",
+      id: "8-1011-1944",
+    },
+    {
+      image: "/images/icono-javier.jpg",
+      name: "Javier Hernandez",
+      description: "Yo",
+      id: "8-1001-178",
+    },
+  ];
+
+  return (
+    
+    <div className="flex flex-center gap-4 justify-center mb-8">
+      {profiles.map((profile, index) => (
+        <ProfileCard
+          key={index}
+          image={profile.image}
+          name={profile.name}
+          description={profile.description}
+          id={profile.id}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default function Home() {
   const [selectedLeague, setSelectedLeague] = useState<string>('');
@@ -18,7 +63,7 @@ export default function Home() {
     <main className="min-h-screen bg-gradient-to-b from-background to-background/80">
       <nav className="border-b border-border/40 backdrop-blur-sm fixed top-0 w-full z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-4xl font-bold gradient-text">ElperroBets</h1>
+          <h1 className="text-4xl font-bold gradient-text">ELPERROBETS</h1>
           <div className="flex items-center gap-4">
             {user && (
               <>
@@ -35,44 +80,8 @@ export default function Home() {
       <div className="container mx-auto px-4 pt-24 pb-12">
         <PromotionalBanner />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          <div className="glass-card p-6 rounded-lg flex items-center space-x-4">
-            <img
-              src="/images/icono-ruben.jpg"
-              className="h-20 w-20 text-primary rounded-full" />
-            <div>
-              <h3 className="font-semibold">Ruben Rivera</h3>
-              <p className="text-sm text-muted-foreground">Hola</p>
-            </div>
-          </div>
-          <div className="glass-card p-6 rounded-lg flex items-center space-x-4">
-            <img 
-            src="/images/icono-henry.jpg"
-            className="h-20 w-20 text-primary rounded-full" />
-            <div>
-              <h3 className="font-semibold">Henry Maldonado</h3>
-              <p className="text-sm text-muted-foreground">El perro</p>
-            </div>
-          </div>
-          <div className="glass-card p-6 rounded-lg flex items-center space-x-4">
-            <img 
-            src="/images/icono-michael.jpg"
-              className="h-20 w-20 text-primary rounded-full" />
-            <div>
-              <h3 className="font-semibold">Michael Aparicio</h3>
-              <p className="text-sm text-muted-foreground">No confien es de la 24</p>
-            </div>
-          </div>
-          <div className="glass-card p-6 rounded-lg flex items-center space-x-4">
-            <img
-              src="/images/icono-javier.jpg"
-              className="h-20 w-20 text-primary rounded-full" />
-            <div>
-              <h3 className="font-semibold">Javier Hernandez</h3>
-              <p className="text-sm text-muted-foreground">Yo</p>
-            </div>
-          </div>
-        </div>
+        <h2 className="text-2xl font-semibold mb-4 gradient-text">Our Team</h2>
+        <ProfileGrid />
 
         <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-4 gradient-text">Popular Leagues</h2>
