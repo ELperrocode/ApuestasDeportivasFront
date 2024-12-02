@@ -62,8 +62,8 @@ export default function Home() {
     <main className="min-h-screen bg-gradient-to-b from-background to-background/80">
       <nav className="border-b border-border/40 backdrop-blur-sm fixed top-0 w-full z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <h1 className="text-4xl font-bold gradient-text">ELPERROBETS</h1>
+          <div className="flex items-center space-x-2 ">
+            <h1 className="text-4xl font-bold gradient-text italic">ELPERROBETS</h1>
             <Dog className="h-8 w-8 text-primary animate-bounce" />
           </div>
           <div className="flex items-center gap-4">
