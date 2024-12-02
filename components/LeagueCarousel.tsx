@@ -7,7 +7,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-
+  CarouselNext,
+  CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -75,25 +76,27 @@ export default function LeagueCarousel({ onLeagueSelect }: LeagueCarouselProps) 
     const animations = ["animate-border-1", "animate-border-2", "animate-border-3"];
     return animations[Math.floor(Math.random() * animations.length)];
   };
-  
 
   return (
-<Carousel className="w-full max-w-8xl mx-auto">
-  <CarouselContent>
-    {leagues.map((league) => (
-      <CarouselItem key={league.idLeague} className="md:basis-1/3 lg:basis-1/4">
-        <Card
-          className={`cursor-pointer hover:scale-105 transition-transform border-4 border-transparent ${getRandomBorderAnimation()}`}
-          onClick={() => onLeagueSelect(league.idLeague)}
-        >
-          <CardContent className="flex items-center justify-center p-6">
-            <h3 className="text-lg font-semibold text-center">{league.strLeague}</h3>
-          </CardContent>
-        </Card>
-      </CarouselItem>
-    ))}
-  </CarouselContent>
-</Carousel>
-
+    <div className="relative">
+      <Carousel className="w-full max-w-8xl mx-auto">
+        <CarouselContent>
+          {leagues.map((league) => (
+            <CarouselItem key={league.idLeague} className="md:basis-1/3 lg:basis-1/4">
+              <Card
+                className={`cursor-pointer hover:scale-105 transition-transform border-4 border-transparent ${getRandomBorderAnimation()}`}
+                onClick={() => onLeagueSelect(league.idLeague)}
+              >
+                <CardContent className="flex items-center justify-center p-6">
+                  <h3 className="text-lg font-semibold text-center">{league.strLeague}</h3>
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 -left-4" />
+        <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2 -right-4" />
+      </Carousel>
+    </div>
   );
 }
