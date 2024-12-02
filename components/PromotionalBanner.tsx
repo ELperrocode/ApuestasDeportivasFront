@@ -1,21 +1,52 @@
-'use client';
+'use client'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useCallback } from "react";
 
 export default function PromotionalBanner() {
-  const [activePromo, setActivePromo] = useState(0);
+  const [api, setApi] = useState<any>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (api) {
+        api.scrollNext();
+      }
+    }, 2000); // Change slide every 5 seconds
+
+    return () => clearInterval(timer);
+  }, [api]);
+
+  const handleSelect = useCallback((api: any) => setApi(api), []);
 
   return (
     <div className="w-full p-8">
       <Carousel
         className="w-full"
-        onSelect={(index) => setActivePromo(index)}
+        onSelect={handleSelect}
       >
+        <CarouselPrevious className="absolute left-0 z-10 p-2">Prev</CarouselPrevious>
         <CarouselContent className="w-full">
           <CarouselItem className="flex items-center justify-center w-full h-auto">
             <img
@@ -32,7 +63,10 @@ export default function PromotionalBanner() {
             />
           </CarouselItem>
         </CarouselContent>
+        <CarouselNext className="absolute right-0 z-10 p-2">Next</CarouselNext>
       </Carousel>
+  
     </div>
   );
 }
+
